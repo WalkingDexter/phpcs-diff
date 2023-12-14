@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+$autoloaders = [
+    __DIR__ . '/../../../squizlabs/php_codesniffer/autoload.php',
+    __DIR__ . '/../vendor/squizlabs/php_codesniffer/autoload.php',
+];
+
+foreach ($autoloaders as $filename) {
+    if (is_file($filename)) {
+        include $filename;
+        break;
+    }
+}
+
+$runner = new WalkingDexter\PHP_CodeSniffer\Diff\Runner();
+$exitCode = $runner->runPHPCS();
+exit($exitCode);
