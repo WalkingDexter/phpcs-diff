@@ -54,13 +54,13 @@ class Reporter extends BaseReporter
         }
 
         switch ($phpcsFile->config->filter) {
-            case 'GitBranch':
-                $branch = Config::getConfigData('branch');
-                if ($branch === null) {
-                    $error = 'ERROR: You must specify the branch name.' . PHP_EOL;
+            case 'GitCommitted':
+                $commit = Config::getConfigData('git_diff_commit');
+                if ($commit === null) {
+                    $error = 'ERROR: You must specify the commit name.' . PHP_EOL;
                     throw new DeepExitException($error, 3);
                 }
-                $cmd = 'git diff ' . escapeshellarg($branch) . ' -- ' . escapeshellarg($path);
+                $cmd = 'git diff ' . escapeshellarg($commit) . ' -- ' . escapeshellarg($path);
                 break;
             case 'GitModified':
                 $cmd = 'git diff -- ' . escapeshellarg($path);

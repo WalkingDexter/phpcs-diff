@@ -6,7 +6,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\DeepExitException;
 use PHP_CodeSniffer\Util\Common;
 
-class GitBranch extends ExactMatch
+class GitCommitted extends ExactMatch
 {
     /**
      * {@inheritdoc}
@@ -23,15 +23,15 @@ class GitBranch extends ExactMatch
      */
     protected function getWhitelist()
     {
-        $branch = Config::getConfigData('branch');
-        if ($branch === null) {
-            $error = 'ERROR: You must specify the branch name.' . PHP_EOL;
+        $commit = Config::getConfigData('git_diff_commit');
+        if ($commit === null) {
+            $error = 'ERROR: You must specify the commit name.' . PHP_EOL;
             throw new DeepExitException($error, 3);
         }
 
         $modified = [];
 
-        $cmd = 'git diff --name-only ' . escapeshellarg($branch) . ' -- ' . escapeshellarg($this->basedir);
+        $cmd = 'git diff --name-only ' . escapeshellarg($commit) . ' -- ' . escapeshellarg($this->basedir);
         $output = [];
         exec($cmd, $output);
 

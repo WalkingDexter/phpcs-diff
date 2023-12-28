@@ -25,14 +25,19 @@ Check changes that have been staged for commit:
 vendor/bin/phpcs-diff --filter=GitStaged
 ```
 
-Check changes between current and target branches:
+Check changes relative to the `main` branch:
 ```bash
-vendor/bin/phpcs-diff --filter=GitBranch --runtime-set branch target
+vendor/bin/phpcs-diff --filter=GitCommitted --runtime-set git_diff_commit main
 ```
 
-If the branch name is set in the configuration options:
+Check changes relative to a specific commit:
 ```bash
-vendor/bin/phpcs-diff --filter=GitBranch
+vendor/bin/phpcs-diff --filter=GitCommitted --runtime-set git_diff_commit 15a5e27
+```
+
+If the commit name is set in the configuration options:
+```bash
+vendor/bin/phpcs-diff --filter=GitCommitted
 ```
 
 You can use any other options and arguments that the `phpcs` command accepts.
